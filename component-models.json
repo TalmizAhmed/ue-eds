@@ -3643,6 +3643,12 @@
         "collapsible": false,
         "fields": [
           {
+            "component": "product_picker",
+            "name": "product_picker",
+            "label": "Product Picker",
+            "valueType": "string"
+          },
+          {
             "component": "text",
             "name": "name",
             "label": "Name",
