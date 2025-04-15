@@ -41,7 +41,7 @@ module.exports = {
       'form-reset-button': 7,
       'form-submit-button': 7,
       'telephone-input': 20,
-      'text-input': 23,
+      'text-input': 24,
       accordion: 14,
       modal: 11,
       rating: 18,
