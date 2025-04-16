@@ -39,7 +39,7 @@ main .form form.edit-mode .fragment-wrapper.edit-mode {
     max-height: 200px;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
-    margin-bottom: 20px;
+    cursor: pointer;
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode::after {
@@ -51,6 +51,10 @@ main .form form.edit-mode .fragment-wrapper.edit-mode::after {
     height: 60px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9));
     pointer-events: none;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.expanded {
+    max-height: none;
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode.expanded::after {

@@ -80,22 +80,6 @@ function annotateExpandButton(button, fragmentDefinition) {
 function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
   // Add fragment styling class
   fragmentFieldWrapper.classList.add('fragment-overlay');
-
-  // Create expand button as div
-  const expandButton = document.createElement('div');
-  expandButton.classList.add('expand-button');
-  expandButton.textContent = 'Expand';
-  expandButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    fragmentFieldWrapper.classList.toggle('expanded');
-    expandButton.textContent = fragmentFieldWrapper.classList.contains('expanded') ? 'Collapse' : 'Expand';
-  });
-
-  // Annotate the button to make it clickable
-  annotateExpandButton(expandButton, fragmentDefinition);
-
-  // Add button inside the wrapper
-  fragmentFieldWrapper.appendChild(expandButton);
 }
 
 function annotateFormFragment(fragmentFieldWrapper, fragmentDefinition) {
@@ -219,6 +203,11 @@ function handleNavigation(container, resource, navigationHandler) {
 export function handleEditorSelect(event) {
   const { target, detail } = event;
   const { selected, resource } = detail;
+
+  // Handle fragment expansion when selected
+  if (target.classList.contains('fragment-wrapper') && target.classList.contains('edit-mode')) {
+    target.classList.toggle('expanded', selected);
+  }
 
   if (selected && target.closest('.wizard') && !target.classList.contains('wizard')) {
     handleNavigation(target.closest('.wizard'), resource, handleWizardNavigation);
