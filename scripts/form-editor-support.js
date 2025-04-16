@@ -70,6 +70,13 @@ function handleAccordionNavigationInEditor(accordionEl, navigateTo) {
   activeAccordionPanel = navigateTo.dataset.id;
 }
 
+function annotateExpandButton(button, fragmentDefinition) {
+  button.setAttribute('data-aue-type', 'component');
+  button.setAttribute('data-aue-model', 'button');
+  button.setAttribute('data-aue-label', 'Expand Fragment');
+  button.setAttribute('data-aue-behavior', 'component');
+}
+
 function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
   // Add fragment styling class
   fragmentFieldWrapper.classList.add('fragment-overlay');
@@ -89,6 +96,10 @@ function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
     fragmentFieldWrapper.classList.toggle('expanded');
     expandButton.textContent = fragmentFieldWrapper.classList.contains('expanded') ? 'Collapse' : 'Expand';
   });
+
+  // Annotate the button to make it clickable
+  annotateExpandButton(expandButton, fragmentDefinition);
+
   fragmentFieldWrapper.parentElement.insertBefore(expandButton, fragmentFieldWrapper.nextSibling);
 
   // Add a data attribute to connect the button with its fragment
