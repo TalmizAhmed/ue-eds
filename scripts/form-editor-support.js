@@ -81,11 +81,13 @@ function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
   });
 
   // Create expand button and add it after the wrapper
-  const expandButton = document.createElement('div');
+  const expandButton = document.createElement('button');
   expandButton.classList.add('expand-button');
+  expandButton.textContent = 'Expand';
   expandButton.addEventListener('click', (e) => {
     e.stopPropagation();
     fragmentFieldWrapper.classList.toggle('expanded');
+    expandButton.textContent = fragmentFieldWrapper.classList.contains('expanded') ? 'Collapse' : 'Expand';
   });
   fragmentFieldWrapper.parentElement.insertBefore(expandButton, fragmentFieldWrapper.nextSibling);
 

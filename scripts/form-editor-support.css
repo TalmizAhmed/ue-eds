@@ -119,7 +119,7 @@ main .form form.edit-mode .fragment-wrapper.edit-mode.expanded {
 
 main .form form.edit-mode .fragment-wrapper.edit-mode .expand-button {
     position: absolute;
-    bottom: 0;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -132,12 +132,17 @@ main .form form.edit-mode .fragment-wrapper.edit-mode .expand-button {
     font-size: 11px;
     color: #eb2f96;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    margin-bottom: -10px;
+    outline: none;
 }
 
 main .form form.edit-mode .expand-button:hover {
     background: #ffd6e7;
     border-color: #ff85c0;
+}
+
+main .form form.edit-mode .expand-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(235, 47, 150, 0.2);
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode .expand-button::after {
