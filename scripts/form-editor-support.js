@@ -74,13 +74,7 @@ function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
   // Add fragment styling class
   fragmentFieldWrapper.classList.add('fragment-overlay');
 
-  // Apply styling to all direct children to make them appear greyed out
-  Array.from(fragmentFieldWrapper.children).forEach(child => {
-    child.style.opacity = '0.5';
-    child.style.pointerEvents = 'none';
-  });
-
-  // Create and add expand button
+  // Create and add expand button first
   const expandButton = document.createElement('div');
   expandButton.classList.add('expand-button');
   expandButton.addEventListener('click', (e) => {
@@ -88,6 +82,14 @@ function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
     fragmentFieldWrapper.classList.toggle('expanded');
   });
   fragmentFieldWrapper.appendChild(expandButton);
+
+  // Apply styling to all direct children except the expand button
+  Array.from(fragmentFieldWrapper.children).forEach(child => {
+    if (!child.classList.contains('expand-button')) {
+      child.style.opacity = '0.5';
+      child.style.pointerEvents = 'none';
+    }
+  });
 }
 
 function annotateFormFragment(fragmentFieldWrapper, fragmentDefinition) {
