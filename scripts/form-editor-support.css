@@ -155,11 +155,3 @@ main .form form.edit-mode .expand-button:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(235, 47, 150, 0.2);
 }
-
-main .form form.edit-mode .expand-button::after {
-    content: "Expand";
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode.expanded .expand-button::after {
-    content: "Collapse";
-}
