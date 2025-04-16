@@ -23,6 +23,7 @@ import { handleAccordionNavigation } from '../blocks/form/components/accordion/a
 
 window.currentMode = 'preview';
 let activeWizardStep;
+let activeAccordionPanel;
 const OOTBViewTypeComponentsWithoutModel = ['wizard', 'toggleable-link', 'modal'];
 
 export function getItems(container) {
@@ -64,18 +65,19 @@ export function handleWizardNavigation(wizardEl, navigateTo) {
   navigateToMenuItem.classList.add('wizard-menu-active-item');
 }
 
+function handleAccordionNavigationInEditor(accordionEl, navigateTo) {
+  handleAccordionNavigation(accordionEl, navigateTo, true);
+  activeAccordionPanel = navigateTo.dataset.id;
+}
+
 function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
-  const titleEl = document.createElement('div');
-  titleEl.classList.add('fragment-title');
-  titleEl.textContent = fragmentDefinition.label?.value || fragmentDefinition.name;
-  fragmentFieldWrapper.appendChild(titleEl);
-  fragmentFieldWrapper.appendChild(document.createElement('hr'));
-  const fragItems = getItems(fragmentDefinition);
-  fragItems.forEach((fragItem) => {
-    const itemLabel = fragItem.label?.value || fragItem.name;
-    const itemLabelEl = document.createTextNode(itemLabel);
-    fragmentFieldWrapper.appendChild(itemLabelEl);
-    fragmentFieldWrapper.appendChild(document.createElement('br'));
+  // Add fragment styling class
+  fragmentFieldWrapper.classList.add('fragment-overlay');
+
+  // Apply styling to all direct children to make them appear greyed out
+  Array.from(fragmentFieldWrapper.children).forEach(child => {
+    child.style.opacity = '0.5';
+    child.style.pointerEvents = 'none';
   });
 }
 
@@ -88,11 +90,11 @@ function annotateFormFragment(fragmentFieldWrapper, fragmentDefinition) {
     newFieldWrapper.setAttribute('data-aue-model', 'form-fragment');
     newFieldWrapper.setAttribute('data-aue-label', fragmentDefinition.label?.value || fragmentDefinition.name);
     newFieldWrapper.classList.add('edit-mode');
-    newFieldWrapper.replaceChildren();
+    // newFieldWrapper.replaceChildren();
     fragmentFieldWrapper.insertAdjacentElement('afterend', newFieldWrapper);
     generateFragmentRendition(newFieldWrapper, fragmentDefinition);
   } else {
-    fragmentFieldWrapper.replaceChildren();
+    // fragmentFieldWrapper.replaceChildren();
     generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition);
   }
 }
@@ -145,6 +147,11 @@ function annotateItems(items, formDefinition, formFieldMap) {
               if (activeWizardStep === fieldWrapper.dataset.id) {
                 handleWizardNavigation(fieldWrapper.parentElement, fieldWrapper);
               }
+              /* Check if this panel is in an accordion
+                and should be expanded in authoring after a change */
+              if (activeAccordionPanel === fieldWrapper.dataset.id && fieldWrapper.parentElement.classList.contains('accordion')) {
+                handleAccordionNavigationInEditor(fieldWrapper.parentElement, fieldWrapper);
+              }
             }
           } else {
             fieldWrapper.setAttribute('data-aue-type', 'component');
@@ -177,30 +184,29 @@ export function annotateFormForEditing(formEl, formDefinition) {
 
 function handleNavigation(container, resource, navigationHandler) {
   const el = container.querySelector(`[data-aue-resource='${resource}']`);
-  if (el.hasAttribute('data-index')) {
-    // if selected element is the direct child of wizard
+  if (!el) return;
+  if (el.parentElement === container) {
     navigationHandler(container, el);
   } else {
-    Array.from(container.children).forEach((child) => {
-      const isElPresentUnderChild = child.querySelector(`[data-aue-resource='${resource}']`);
-      if (isElPresentUnderChild) {
-        navigationHandler(container, child);
-      }
-    });
+    const directChild = Array.from(container.children)
+      .find((child) => child.contains(el) || child === el);
+    if (directChild) {
+      navigationHandler(container, directChild);
+    }
   }
 }
 
 /**
  * Event listener for aue:ui-select, selection of a component
  */
-function handleEditorSelect(event) {
+export function handleEditorSelect(event) {
   const { target, detail } = event;
   const { selected, resource } = detail;
 
   if (selected && target.closest('.wizard') && !target.classList.contains('wizard')) {
     handleNavigation(target.closest('.wizard'), resource, handleWizardNavigation);
   } else if (selected && target.closest('.accordion')) {
-    handleNavigation(target.closest('.accordion'), resource, handleAccordionNavigation);
+    handleNavigation(target.closest('.accordion'), resource, handleAccordionNavigationInEditor);
   }
 }
 
@@ -272,8 +278,8 @@ export async function applyChanges(event) {
   const { detail } = event;
 
   const resource = detail?.request?.target?.resource // update, patch components
-      || detail?.request?.target?.container?.resource // update, patch, add to sections
-      || detail?.request?.to?.container?.resource; // move in sections
+    || detail?.request?.target?.container?.resource // update, patch, add to sections
+    || detail?.request?.to?.container?.resource; // move in sections
   if (!resource) return false;
   const updates = detail?.response?.updates;
   if (!updates.length) return false;
