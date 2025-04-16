@@ -42,6 +42,25 @@ main .form form.edit-mode .fragment-wrapper.edit-mode {
     cursor: pointer;
 }
 
+main .form form.edit-mode .fragment-wrapper.edit-mode::before {
+    content: 'Click to expand';
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff0f6;
+    padding: 4px 12px;
+    border: 1px solid #ffadd2;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #eb2f96;
+    z-index: 2;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.expanded::before {
+    display: none;
+}
+
 main .form form.edit-mode .fragment-wrapper.edit-mode::after {
     content: '';
     position: absolute;
