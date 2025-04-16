@@ -79,6 +79,15 @@ function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
     child.style.opacity = '0.5';
     child.style.pointerEvents = 'none';
   });
+
+  // Create and add expand button
+  const expandButton = document.createElement('div');
+  expandButton.classList.add('expand-button');
+  expandButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fragmentFieldWrapper.classList.toggle('expanded');
+  });
+  fragmentFieldWrapper.appendChild(expandButton);
 }
 
 function annotateFormFragment(fragmentFieldWrapper, fragmentDefinition) {

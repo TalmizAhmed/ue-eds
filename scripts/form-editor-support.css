@@ -36,6 +36,9 @@ main .form form.edit-mode .fragment-wrapper.edit-mode {
     border-radius: 4px;
     padding: 15px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(255, 255, 255, 0.02));
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode::before {
@@ -115,4 +118,33 @@ main .form form.edit-mode .captcha-wrapper {
 
 .adobe-ue-edit .embed-adaptive-form-wrapper:not(:has(form, a)) > div::before {
     content: "Select an Adaptive Form";
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.expanded {
+    max-height: none;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode .expand-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 8px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
+    cursor: pointer;
+    z-index: 2;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode .expand-button::after {
+    content: "Expand";
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.expanded .expand-button::after {
+    content: "Collapse";
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode .expand-button:hover {
+    background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
 }
