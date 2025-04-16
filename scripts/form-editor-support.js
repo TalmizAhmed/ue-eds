@@ -81,14 +81,8 @@ function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
   // Add fragment styling class
   fragmentFieldWrapper.classList.add('fragment-overlay');
 
-  // Apply styling to content
-  Array.from(fragmentFieldWrapper.children).forEach(child => {
-    child.style.opacity = '0.5';
-    child.style.pointerEvents = 'none';
-  });
-
-  // Create expand button and add it after the wrapper
-  const expandButton = document.createElement('button');
+  // Create expand button as div
+  const expandButton = document.createElement('div');
   expandButton.classList.add('expand-button');
   expandButton.textContent = 'Expand';
   expandButton.addEventListener('click', (e) => {
@@ -100,12 +94,8 @@ function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
   // Annotate the button to make it clickable
   annotateExpandButton(expandButton, fragmentDefinition);
 
-  fragmentFieldWrapper.parentElement.insertBefore(expandButton, fragmentFieldWrapper.nextSibling);
-
-  // Add a data attribute to connect the button with its fragment
-  const fragmentId = fragmentFieldWrapper.id || Math.random().toString(36).substring(2);
-  fragmentFieldWrapper.id = fragmentId;
-  expandButton.dataset.fragmentId = fragmentId;
+  // Add button inside the wrapper
+  fragmentFieldWrapper.appendChild(expandButton);
 }
 
 function annotateFormFragment(fragmentFieldWrapper, fragmentDefinition) {
