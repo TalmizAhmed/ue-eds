@@ -47,15 +47,20 @@ main .form form.edit-mode .fragment-wrapper.edit-mode > legend:first-of-type {
     margin-left: -8px;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(> :not(legend)))::before {
+main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(> :not(legend))),
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:not(:has(> :not(legend))) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(> :not(legend)))::before,
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:not(:has(> :not(legend)))::before {
     content: "Adaptive Form Fragment";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: rgba(0, 0, 0, 0.2);
     font-size: 15px;
     font-weight: 500;
+    position: absolute;
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode:has(> :not(legend))::before {
@@ -92,16 +97,16 @@ main .form form.edit-mode .fragment-wrapper.edit-mode:has(> :not(legend))::after
     pointer-events: none;
 }
 
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:has(> :not(legend))::before {
+    display: none;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:has(> :not(legend))::after {
+    display: none;
+}
+
 main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded {
     max-height: none;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::before {
-    display: none;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::after {
-    display: none;
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode .fragment-title {
@@ -158,12 +163,4 @@ main .form form.edit-mode .captcha-wrapper {
 
 .adobe-ue-edit .embed-adaptive-form-wrapper:not(:has(form, a)) > div::before {
     content: "Select an Adaptive Form";
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:has(> :not(legend))::before {
-    display: none;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:has(> :not(legend))::after {
-    display: none;
 }
