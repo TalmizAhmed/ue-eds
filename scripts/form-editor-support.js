@@ -69,16 +69,7 @@ function handleAccordionNavigationInEditor(accordionEl, navigateTo) {
   handleAccordionNavigation(accordionEl, navigateTo, true);
   activeAccordionPanel = navigateTo.dataset.id;
 }
-
-function annotateExpandButton(button, fragmentDefinition) {
-  button.setAttribute('data-aue-type', 'component');
-  button.setAttribute('data-aue-model', 'button');
-  button.setAttribute('data-aue-label', 'Expand Fragment');
-  button.setAttribute('data-aue-behavior', 'component');
-}
-
-function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
-  // Add fragment styling class
+function generateFragmentRendition(fragmentFieldWrapper) {
   fragmentFieldWrapper.classList.add('fragment-overlay');
 }
 
@@ -96,7 +87,7 @@ function annotateFormFragment(fragmentFieldWrapper, fragmentDefinition) {
     generateFragmentRendition(newFieldWrapper, fragmentDefinition);
   } else {
     // fragmentFieldWrapper.replaceChildren();
-    generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition);
+    generateFragmentRendition(fragmentFieldWrapper);
   }
 }
 
@@ -206,7 +197,7 @@ export function handleEditorSelect(event) {
 
   // Handle fragment expansion when selected
   if (target.classList.contains('fragment-wrapper') && target.classList.contains('edit-mode')) {
-    target.classList.toggle('expanded', selected);
+    target.classList.toggle('fragment-expanded', selected);
   }
 
   if (selected && target.closest('.wizard') && !target.classList.contains('wizard')) {
