@@ -92,18 +92,7 @@ main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::after {
     display: none;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode .fragment-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-    z-index: 1;
-}
-
-form.edit-mode .fragment-wrapper.edit-mode .fragment-title {
+main .form form.edit-mode .fragment-wrapper.edit-mode .fragment-title {
     text-align: left;
     color: #4b4b4b;
     padding-left: 25px;
