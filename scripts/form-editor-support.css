@@ -30,39 +30,36 @@ main .form form:not(.edit-mode) .fragment-wrapper.edit-mode{
     display: none;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*)) {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    min-height: 60px;
-    padding: 15px;
-    cursor: default;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*))::before {
-    content: "Adaptive Form Fragment";
-    position: static;
-    transform: none;
-    padding: 0;
-    background: none;
-    box-shadow: none;
-    color: #4b4b4b;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*))::after {
-    display: none;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode:has(*) {
+main .form form.edit-mode .fragment-wrapper.edit-mode {
     position: relative;
     border: 2px dashed rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     padding: 15px;
     max-height: 300px;
     overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    cursor: pointer;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode:has(*)::before {
+main .form form.edit-mode .fragment-wrapper.edit-mode > legend:first-of-type {
+    width: auto;
+    padding: 0 8px;
+    margin-left: -8px;
+}
+
+/* Empty fragment state */
+main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*:not(legend)))::before {
+    content: "Adaptive Form Fragment";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #4b4b4b;
+    font-size: 15px;
+}
+
+/* Fragment with content state */
+main .form form.edit-mode .fragment-wrapper.edit-mode:has(*:not(legend))::before {
     content: '<< CLICK TO EXPAND >>';
     position: absolute;
     bottom: 15px;
@@ -81,7 +78,8 @@ main .form form.edit-mode .fragment-wrapper.edit-mode:has(*)::before {
     border-radius: 4px;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode:has(*)::after {
+/* Only show gradient when there's content */
+main .form form.edit-mode .fragment-wrapper.edit-mode:has(*:not(legend))::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -97,10 +95,6 @@ main .form form.edit-mode .fragment-wrapper.edit-mode:has(*)::after {
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::before {
-    display: none;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::after {
     display: none;
 }
 
