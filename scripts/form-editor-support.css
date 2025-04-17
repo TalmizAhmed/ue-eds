@@ -47,19 +47,7 @@ main .form form.edit-mode .fragment-wrapper.edit-mode > legend:first-of-type {
     margin-left: -8px;
 }
 
-/* Empty fragment state */
-main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*:not(legend)))::before {
-    content: "Adaptive Form Fragment";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #4b4b4b;
-    font-size: 15px;
-}
-
-/* Fragment with content state */
-main .form form.edit-mode .fragment-wrapper.edit-mode:has(*:not(legend))::before {
+main .form form.edit-mode .fragment-wrapper.edit-mode::before {
     content: '<< CLICK TO EXPAND >>';
     position: absolute;
     bottom: 15px;
@@ -72,14 +60,17 @@ main .form form.edit-mode .fragment-wrapper.edit-mode:has(*:not(legend))::before
     white-space: nowrap;
     font-weight: 800;
     text-decoration: none;
-    letter-spacing: 0.5px;
     background: white;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
+    letter-spacing: 0.5px;
 }
 
-/* Only show gradient when there's content */
-main .form form.edit-mode .fragment-wrapper.edit-mode:has(*:not(legend))::after {
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::before {
+    display: none;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -94,7 +85,11 @@ main .form form.edit-mode .fragment-wrapper.edit-mode:has(*:not(legend))::after 
     pointer-events: none;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::before {
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded {
+    max-height: none;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::after {
     display: none;
 }
 
