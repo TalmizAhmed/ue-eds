@@ -47,6 +47,7 @@ main .form form.edit-mode .fragment-wrapper.edit-mode > legend:first-of-type {
     margin-left: -8px;
 }
 
+/* Targets empty fragments (those with only a legend) in both normal and expanded states to center their content */
 main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(> :not(legend))),
 main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:not(:has(> :not(legend))) {
     display: flex;
@@ -54,13 +55,13 @@ main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:not(:has
     justify-content: center;
 }
 
+/* Shows "Adaptive Form Fragment" text when fragment is empty (has only legend) in both normal and expanded states */
 main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(> :not(legend)))::before,
 main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:not(:has(> :not(legend)))::before {
     content: "Adaptive Form Fragment";
     color: rgba(0, 0, 0, 0.2);
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
-    position: absolute;
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode:has(> :not(legend))::before {
