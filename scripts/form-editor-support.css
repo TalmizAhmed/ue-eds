@@ -159,3 +159,11 @@ main .form form.edit-mode .captcha-wrapper {
 .adobe-ue-edit .embed-adaptive-form-wrapper:not(:has(form, a)) > div::before {
     content: "Select an Adaptive Form";
 }
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:has(> :not(legend))::before {
+    display: none;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded:has(> :not(legend))::after {
+    display: none;
+}
