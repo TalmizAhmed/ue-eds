@@ -30,24 +30,39 @@ main .form form:not(.edit-mode) .fragment-wrapper.edit-mode{
     display: none;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode {
+main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*)) {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
+    padding: 15px;
+    cursor: default;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*))::before {
+    content: "Adaptive Form Fragment";
+    position: static;
+    transform: none;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    color: #4b4b4b;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode:not(:has(*))::after {
+    display: none;
+}
+
+main .form form.edit-mode .fragment-wrapper.edit-mode:has(*) {
     position: relative;
     border: 2px dashed rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     padding: 15px;
     max-height: 300px;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-    cursor: pointer;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode > legend:first-of-type {
-    width: auto;
-    padding: 0 8px;
-    margin-left: -8px;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode::before {
+main .form form.edit-mode .fragment-wrapper.edit-mode:has(*)::before {
     content: '<< CLICK TO EXPAND >>';
     position: absolute;
     bottom: 15px;
@@ -60,17 +75,13 @@ main .form form.edit-mode .fragment-wrapper.edit-mode::before {
     white-space: nowrap;
     font-weight: 800;
     text-decoration: none;
+    letter-spacing: 0.5px;
     background: white;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
-    letter-spacing: 0.5px;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::before {
-    display: none;
-}
-
-main .form form.edit-mode .fragment-wrapper.edit-mode::after {
+main .form form.edit-mode .fragment-wrapper.edit-mode:has(*)::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -85,8 +96,8 @@ main .form form.edit-mode .fragment-wrapper.edit-mode::after {
     pointer-events: none;
 }
 
-main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded {
-    max-height: none;
+main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::before {
+    display: none;
 }
 
 main .form form.edit-mode .fragment-wrapper.edit-mode.fragment-expanded::after {
