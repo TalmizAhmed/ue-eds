@@ -3649,6 +3649,12 @@
             "valueType": "string"
           },
           {
+            "component": "datasource-bindref",
+            "name": "bindref",
+            "label": "Bindref Picker",
+            "valueType": "string"
+          },
+          {
             "component": "text",
             "name": "name",
             "label": "Name",
