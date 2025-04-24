@@ -3649,12 +3649,6 @@
             "valueType": "string"
           },
           {
-            "component": "datasource-bindref",
-            "name": "bindref",
-            "label": "Bindref Picker",
-            "valueType": "string"
-          },
-          {
             "component": "text",
             "name": "name",
             "label": "Name",
@@ -3679,9 +3673,9 @@
             "valueType": "boolean"
           },
           {
-            "component": "text",
+            "component": "datasource-bindref",
             "name": "dataRef",
-            "label": "Bind reference",
+            "label": "Bind Reference",
             "valueType": "string"
           },
           {
